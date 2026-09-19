@@ -1,0 +1,25 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Raw moderation content and provider responses stay outside version control
+data/private/
+runs/
+artifacts/
+logs/
+
+# Model assets
+models/
+checkpoints/
+*.safetensors
+*.ckpt
+
+# Local caches
+.venv/
+__pycache__/
+node_modules/
+.DS_Store
+Thumbs.db
