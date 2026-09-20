@@ -6,6 +6,8 @@
 
 **已部署看板：** [https://ksanadock.github.io/verdict-lab/](https://ksanadock.github.io/verdict-lab/)
 
+**公开评测结果：** [Hugging Face · HuangZelin/verdict-lab-results](https://huggingface.co/datasets/HuangZelin/verdict-lab-results)
+
 ## 为什么做
 
 内容审核不止输出“通过 / 不通过”。一次审核需要识别多个风险、考虑语境与例外、关联具体规则，并将结果交给解释、复核、申诉等后续环节。模型应当输出可供其他 Agent 消费的判断记录。
