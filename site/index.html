@@ -51,18 +51,18 @@
           <div><span class="index">01</span><h2 id="consumption-title">总体消耗</h2></div>
           <p>所有数据集 · 两模型 · 不含失败与重试</p>
         </div>
-        <div class="total-grid">
-          <article class="total-card token-card">
+        <article class="total-card consumption-total-card">
+          <div class="total-metric token-metric">
             <span class="micro-label">TOTAL TOKENS</span>
             <strong id="total-tokens">—</strong>
             <p id="token-breakdown">输入与输出 token 合计</p>
-          </article>
-          <article class="total-card cost-card">
+          </div>
+          <div class="total-metric cost-metric">
             <span class="micro-label">TOTAL COST</span>
             <strong id="total-cost">—</strong>
             <p id="cost-note">最终成功结果的 API 费用</p>
-          </article>
-        </div>
+          </div>
+        </article>
         <div class="model-consumption" id="model-consumption"></div>
       </section>
 
