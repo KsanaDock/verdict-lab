@@ -58,9 +58,12 @@ section:not(.hero) { padding: 76px 0; border-bottom: 1px solid var(--line); }
 .token-card > strong { color: var(--cyan); }.cost-card > strong { color: var(--amber); }
 .total-card p { color: var(--muted); margin: 0; font-size: .8rem; }
 .model-consumption { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 18px; }
-.consumption-row { border: 1px solid var(--line); padding: 16px 20px; display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 24px; color: var(--muted); font-size: .78rem; }
-.consumption-row strong { color: var(--text); font-size: .86rem; }
-.consumption-row b { color: var(--text); font: 600 .82rem ui-monospace, SFMono-Regular, Consolas, monospace; }
+.consumption-panel { border: 1px solid var(--line); padding: 20px 28px 8px; }
+.consumption-panel .micro-label { display: block; margin-bottom: 8px; }
+.token-panel .micro-label { color: var(--cyan); }.cost-panel .micro-label { color: var(--amber); }
+.consumption-item { min-height: 52px; display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid var(--line); }
+.consumption-item strong { color: var(--text); font-size: .86rem; }
+.consumption-item b { color: var(--text); font: 600 .82rem ui-monospace, SFMono-Regular, Consolas, monospace; text-align: right; }
 .section-heading { display: flex; justify-content: space-between; gap: 24px; align-items: center; margin-bottom: 30px; }
 .section-heading > div:first-child { display: flex; align-items: center; gap: 18px; }
 .section-heading h2 { font-size: clamp(1.55rem, 3vw, 2.5rem); letter-spacing: -.04em; margin: 0; }
@@ -140,8 +143,7 @@ footer { padding: 36px 0 54px; display: grid; grid-template-columns: 1fr auto au
   section:not(.hero) { padding: 54px 0; }
   .section-heading { align-items: flex-start; flex-direction: column; }
   .dataset-context { margin-left: 0; }
-  .consumption-row { grid-template-columns: 1fr 1fr; gap: 8px 16px; }
-  .consumption-row strong { grid-column: 1 / -1; }
+  .consumption-panel { padding-inline: 20px; }
   .category-note { margin-left: 0; }
   .primary-score strong { font-size: 4.6rem; }
   .model-foot { align-items: flex-start; flex-direction: column; gap: 4px; }

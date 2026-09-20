@@ -80,7 +80,15 @@ async function init() {
     document.querySelector("#token-breakdown").textContent = `精确总计 ${totals.totalTokens.toLocaleString("zh-CN")} token · 输入 ${totals.promptTokens.toLocaleString("zh-CN")} + 输出 ${totals.completionTokens.toLocaleString("zh-CN")}`;
     document.querySelector("#total-cost").textContent = fmtUsd(totals.costUsd, totals.costIsLowerBound, 6);
     document.querySelector("#cost-note").textContent = totals.costIsLowerBound ? "最终成功结果的已知费用下界" : "最终成功结果费用，不含失败与重试";
-    document.querySelector("#model-consumption").innerHTML = totals.models.map(model => `<div class="consumption-row"><strong>${model.name}</strong><span>${model.totalTokens.toLocaleString("zh-CN")} token</span><b>${fmtUsd(model.costUsd, model.costIsLowerBound, 6)}</b></div>`).join("");
+    document.querySelector("#model-consumption").innerHTML = `
+      <div class="consumption-panel token-panel">
+        <span class="micro-label">TOKENS BY MODEL</span>
+        ${totals.models.map(model => `<div class="consumption-item"><strong>${model.name}</strong><b>${model.totalTokens.toLocaleString("zh-CN")} token</b></div>`).join("")}
+      </div>
+      <div class="consumption-panel cost-panel">
+        <span class="micro-label">COST BY MODEL</span>
+        ${totals.models.map(model => `<div class="consumption-item"><strong>${model.name}</strong><b>${fmtUsd(model.costUsd, model.costIsLowerBound, 6)}</b></div>`).join("")}
+      </div>`;
 
     const selector = document.querySelector("#dataset-select");
     selector.innerHTML = payload.benchmarks.map((item, index) => `<option value="${index}">${item.datasetName}</option>`).join("");
