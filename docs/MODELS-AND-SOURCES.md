@@ -9,9 +9,7 @@
 | `typesafe/jev-1.13` | A 组主候选 | OpenRouter 的 Decisions 能力 | 模型页面和官方 Lab 示例已查到；账户权限、返回分布及用量待实测 |
 | `Qwen/Qwen3Guard-Gen-4B` | B 组中文审核候选 | 先考虑自部署 | 官方模型卡提供部署方式；默认输出安全等级和类别，不能假定支持任意自定义判断 |
 | `meta-llama/llama-guard-4-12b` | B 组另一专用审核基线 | OpenRouter | 模型目录中可见；概率字段、自定义规则和中文表现待实测 |
-| `deepseek/deepseek-v4-flash-0731` | C 组低价 LLM 主候选 | OpenRouter | 有日期版本；需冻结 provider，验证短结构化输出和推理设置 |
-| `deepseek/deepseek-v4-flash` | C 组成本候选 | OpenRouter | 目录显示名称为 V4 Flash 0423，核查时输入 / 输出报价略低于 0731 |
-| `deepseek/deepseek-v3.2` | C 组可选历史基线 | OpenRouter | 已查到，但当前报价高于上述 Flash，不称为最便宜 |
+| `deepseek-flash` | C 组低价 LLM 主候选 | DeepSeek 官方 API | 当前指向 DeepSeek-V4.1-Flash；需保存响应中的后端指纹、缓存 token 与实际账单 |
 | `Qwen/Qwen3Guard-Stream-4B` | 流式专项 | 自部署，后续阶段 | 使用增量输入与分类头；单独评估检测延迟，不混入整条文本赛道 |
 
 “业界常用”在本项目中落实为公开可获得、可复现的代表性专用审核基线，不声称已经验证市场占有率。首期至少覆盖 A / B / C 各一个可用版本，B 组逐步增加第二个基线。
@@ -34,14 +32,13 @@ M1 探测清单：
 
 ## 3. 价格快照
 
-单位为 USD / 1,000,000 tokens；不是每百万条内容价格，也不是吞吐或延迟实测。API 目录按每 token 给价，本表乘以 1,000,000。
+单位为 USD / 1,000,000 tokens；不是每百万条内容价格，也不是吞吐或延迟实测。DeepSeek Flash 价格按 UTC 工作日峰谷时段变化，表内同时列出。
 
 | 模型 | 输入 | 输出 | 来源 |
 | --- | ---: | ---: | --- |
 | Jev 1.13 | 0.042 | 0 | OpenRouter 模型页 |
-| DeepSeek V4 Flash 0731 | 0.04000 | 0.08000 | 模型目录与模型页 |
-| DeepSeek V4 Flash（0423） | 0.03976 | 0.07952 | 模型目录 |
-| DeepSeek V3.2 | 0.26900 | 0.40000 | 模型目录 |
+| DeepSeek Flash（谷时） | 命中 0.003；未命中 0.15 | 0.60 | DeepSeek 官方价格页 |
+| DeepSeek Flash（峰时） | 命中 0.006；未命中 0.30 | 1.20 | DeepSeek 官方价格页 |
 | Llama Guard 4 12B | 0.18000 | 0.18000 | 模型目录 |
 | Qwen3Guard 自部署 | 待测 | 待测 | 不按 API token 报价或零成本计算 |
 
@@ -68,8 +65,8 @@ M1 探测清单：
 | [OpenRouter Jev 1.13](https://openrouter.ai/typesafe/jev-1.13) | Jev 的平台型号与价格 |
 | [OpenRouter Jev Lab](https://openrouter.ai/labs/jev/compile) | Decisions SDK 请求与结构化输出示例 |
 | [OpenRouter 公共模型目录](https://openrouter.ai/api/v1/models) | 无认证目录与报价查询；本次字段摘录见上表 |
-| [OpenRouter DeepSeek V4 Flash 0731](https://openrouter.ai/deepseek/deepseek-v4-flash-0731) | 低价组版本及供应商差异 |
-| [OpenRouter DeepSeek V3.2](https://openrouter.ai/deepseek/deepseek-v3.2) | 可选旧版本基线 |
+| [DeepSeek 模型与价格](https://api-docs.deepseek.com/quick_start/pricing/) | 官方 Flash 型号、峰谷价格与兼容别名 |
+| [DeepSeek 缓存说明](https://api-docs.deepseek.com/guides/kv_cache/) | 缓存命中规则与 usage 字段 |
 | [OpenRouter Llama Guard 4](https://openrouter.ai/meta-llama/llama-guard-4-12b) | 专用审核模型的 API 路线 |
 | [TypeSafe 模型说明](https://docs.typesafe.ai/models) | 语言、输入及模型使用限制 |
 | [TypeSafe 概率与置信度](https://docs.typesafe.ai/confidence) | 字段含义 |

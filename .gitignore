@@ -20,6 +20,7 @@ checkpoints/
 # Local caches
 .venv/
 __pycache__/
+*.egg-info/
 node_modules/
 .DS_Store
 Thumbs.db

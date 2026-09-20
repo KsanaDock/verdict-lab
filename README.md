@@ -2,7 +2,7 @@
 
 输入内容与可配置判断项，比较不同模型如何选择、表达不确定性，以及支撑后续审核服务。
 
-**状态：方案阶段，尚无应用代码、模型调用或实测结果。** 本仓库创建于 2026-09-20，先验证能力边界与成本竞争力，再决定是否开发服务、微调模型或投入训练。
+**状态：M1 已完成三个数据集的全量评测。** 当前代码可读取 COLDataset、ChineseHarm-Bench 与 NVIDIA Aegis 2.0，向 OpenRouter Jev 和 DeepSeek 官网 Flash 发起同例对比，并保存原始响应、token、缓存命中、延迟和成本。公网看板仅发布聚合指标，原始数据集、待审核文本与运行目录不会上传。
 
 ## 为什么做
 
@@ -14,7 +14,7 @@ VerdictLab 比较三类路线，不预设 Jev 胜出：
 | --- | --- | --- |
 | 快速决策模型 | OpenRouter 的 `typesafe/jev-1.13` | 多项判断与原生选项概率，能否改善效率及复核分流？ |
 | 专用审核模型 | Qwen3Guard-Gen-4B；Llama Guard 4 12B | 专项训练的质量、价格及规则适应能力如何？ |
-| 低价通用语言模型 | DeepSeek V4 Flash 0731；开跑前补选低价候选 | 短结构化输出是否已经足够好、足够便宜？ |
+| 低价通用语言模型 | DeepSeek 官网 `deepseek-flash` | 短结构化输出是否已经足够好、足够便宜？ |
 
 候选均需在实施阶段验证权限、接口与实际可用性；模型已上架不等于本项目已成功调用。型号、价格、限制和来源见 [模型与资料](docs/MODELS-AND-SOURCES.md)。
 
@@ -67,9 +67,60 @@ VerdictLab 比较三类路线，不预设 Jev 胜出：
 | [判断契约](docs/JUDGMENT-CONTRACT.md) | 输入输出约定、判断项设计、概率语义、完整示例 |
 | [评测方案](docs/BENCHMARK.md) | 公平对比、数据集、质量与成本指标、实验登记 |
 | [模型与资料](docs/MODELS-AND-SOURCES.md) | 候选版本、核查快照、价格、接口风险、资料来源 |
+| [M1 实现说明](docs/M1-IMPLEMENTATION.md) | 当前适配器、数据映射、运行方法与成本口径 |
 
-## 本阶段范围
+## 数据集与来源
 
-交付 README 和方案文档；尚未接入 API、准备真实审核数据、部署模型、运行收费评测或训练模型。没有可执行启动命令，也没有示例跑分。
+| 数据集 | 本项目评测范围 | 官方来源 |
+| --- | ---: | --- |
+| ChineseHarm-Bench | benchmark 全量 6,000 条 | [GitHub：zjunlp/ChineseHarm-bench](https://github.com/zjunlp/ChineseHarm-bench) |
+| COLDataset | test 全量 5,323 条 | [GitHub：thu-coai/COLDataset](https://github.com/thu-coai/COLDataset) |
+| Aegis AI Content Safety Dataset 2.0 | test 中 1,928 条可评测记录 | [Hugging Face：nvidia/Aegis-AI-Content-Safety-Dataset-2.0](https://huggingface.co/datasets/nvidia/Aegis-AI-Content-Safety-Dataset-2.0) |
 
-下一阶段先完成接口探测与小样本对比，验证 Jev 经 OpenRouter 返回的字段是否满足契约，并冻结评测集与价格快照。
+数据集文件保存在 Git 忽略的 `data/private/`，运行结果保存在 Git 忽略的 `runs/`。请分别遵守各数据集来源页面所列的许可证和使用条件。
+
+## 当前运行方法
+
+代码要求 Python 3.11 或以上。先安装本地包：
+
+```powershell
+python -m pip install -e .
+```
+
+不调用模型即可检查本地 COLDataset 的转换结果：
+
+```powershell
+verdict-lab inspect --dataset cold --path COLDataset/COLDataset/test.csv --limit 3
+```
+
+设置 `OPENROUTER_API_KEY` 和 `DEEPSEEK_API_KEY` 后，可在小样本上同时运行两条路线：
+
+```powershell
+verdict-lab compare --dataset cold --path COLDataset/COLDataset/test.csv --limit 10
+```
+
+英文 Aegis 2.0 默认使用独立的官方分类方向配置。先跑 10 条：
+
+```powershell
+verdict-lab compare --dataset aegis --path data/private/Aegis-AI-Content-Safety-Dataset-2.0/test.json --limit 10
+```
+
+确认接口与预算后，必须显式使用 `--all` 才会运行全部可评测样本：
+
+```powershell
+verdict-lab compare --dataset aegis --path data/private/Aegis-AI-Content-Safety-Dataset-2.0/test.json --all
+```
+
+运行时控制台会实时显示总体进度、每次调用的模型、状态、延迟、费用和命中的方向。运行产物写入被 Git 忽略的 `runs/<run_id>/`：`results.jsonl` 是标准化逐请求记录，`summary.json` 汇总双方调用数、失败数、token、缓存命中、延迟与总成本，`raw/` 保留供应商原始响应，`errors.log` 专门记录错误与暂停原因。
+
+如果进程中断、机器重启或某个供应商余额不足，直接恢复原 run：
+
+```powershell
+verdict-lab compare --resume runs/<run_id>
+```
+
+恢复时使用 run 内冻结的样本、分类定义和价格快照；已经成功的“样本 × 模型”会跳过，只运行失败或缺失项。鉴权、余额和限流错误会在控制台明确通知、写入 `errors.log`，并暂停对应供应商，另一家仍可继续完成。
+
+在 Windows 上，如果编辑器、预览器或同步软件短暂锁住 `summary.json`，程序会重试并降级写入；汇总文件暂时无法更新时也不会中断 API 测试。逐请求结果仍以已即时刷盘的 `results.jsonl` 为准，锁文件警告会写入 `errors.log`。
+
+Jev 与 DeepSeek 的小样本接口已验证；正式评测仍应逐步扩大样本，并持续核对原始响应和供应商控制台账单。

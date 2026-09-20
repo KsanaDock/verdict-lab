@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-09-20",
+  "currency": "USD",
+  "per_tokens": 1000000,
+  "sources": {
+    "deepseek": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "jev": "https://openrouter.ai/typesafe/jev-1.13"
+  },
+  "deepseek-flash": {
+    "timezone": "UTC",
+    "peak_weekdays": [0, 1, 2, 3, 4],
+    "peak_ranges": [[1, 4], [6, 10]],
+    "off_peak": {
+      "input_cache_hit": 0.003,
+      "input_cache_miss": 0.15,
+      "output": 0.6
+    },
+    "peak": {
+      "input_cache_hit": 0.006,
+      "input_cache_miss": 0.3,
+      "output": 1.2
+    }
+  },
+  "typesafe/jev-1.13": {
+    "input": 0.042,
+    "output": 0.0,
+    "note": "Prefer the cost reported by the OpenRouter Decisions response."
+  }
+}
+

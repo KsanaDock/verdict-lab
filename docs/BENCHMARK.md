@@ -1,6 +1,6 @@
 # 横向评测方案
 
-版本：0.1 · 状态：实验设计，尚未运行。
+版本：0.2 · 状态：M1 离线实现完成，尚未运行收费评测。
 
 ## 1. 评测单位与三类参赛者
 
@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | A 决策模型 | `typesafe/jev-1.13` | OpenRouter Decisions 路线；需 M1 验证 |
 | B 专用审核 | `Qwen/Qwen3Guard-Gen-4B`；`meta-llama/llama-guard-4-12b` | Qwen 拟自部署；Llama Guard 可先经 OpenRouter |
-| C 低价 LLM | `deepseek/deepseek-v4-flash-0731` | OpenRouter；冻结供应商与推理设置 |
+| C 低价 LLM | `deepseek-flash` | DeepSeek 官方 API；冻结实际后端指纹、价格时段与推理设置 |
 
 Qwen3Guard-Stream-4B 是流式专项扩展，不能直接与整条审核的延迟合并。低价组在正式开跑前按目标输入 / 输出长度再筛一个低价付费候选，保留 DeepSeek 基线。免费端点和限时补贴只进入独立成本情景。
 
@@ -52,6 +52,8 @@ UGC、用户请求、模型回答三类任务分别设报告。中文、繁体�
 ## 4. 数据与真值
 
 ### 数据阶段
+
+公开数据基线包括 COLDataset、ChineseHarm-Bench，以及 NVIDIA Aegis AI Content Safety Dataset 2.0 的 test split。Aegis 作为英文对话审核赛道单独报告，不与中文集混算；其 36 条仅含 `REDACTED` 占位符的样本因原文未随官方数据分发而排除，记录原始 1,964 与可评测 1,928 两个分母。
 
 1. **试验集：约 200 条实例。** 调整判断项、模板、映射和统计口径；可用人工编写与经授权脱敏样本。此集不能作为最终成绩。
 2. **正式集起步目标：约 2,000 条实例。** 拟按开发 400、校准 400、锁定测试 1,200 划分。具体数量随类别数及统计把握度调整。
@@ -167,14 +169,9 @@ UGC、用户请求、模型回答三类任务分别设报告。中文、繁体�
 
 ### 一个价格算例
 
-仅为推算：每条请求总输入 1,000 tokens（含规则与判断项），DeepSeek 输出 100 tokens；无缓存、重试、推理费、解释或其他调用。
+DeepSeek 官网 Flash 按输入缓存命中、输入缓存未命中和输出 token 分别计费，并区分峰谷时段。实现从响应的 `prompt_cache_hit_tokens`、`prompt_cache_miss_tokens` 和 `completion_tokens` 计算单次费用；缺少缓存拆分时费用记为 unknown，不用总输入 token 猜测。Jev 优先采用 Decisions 响应的供应商上报费用，仅在费用缺失且输入 token 可得时使用冻结快照估算。
 
-| 模型 / 2026-09-20 价格快照 | 每百万内容估计调用费 |
-| --- | --- |
-| Jev：输入 $0.042 / M tokens，输出 $0 | $42 |
-| DeepSeek V4 Flash 0731：输入 $0.04 / M，输出 $0.08 / M | $48 |
-
-这不是实测，也不是每百万 tokens 的费用。两个模型对同一文本的 token 数可能不同，完整选项分布也可能超过 100 输出 tokens。此算例只说明输入单价接近，不能预设数量级成本优势。来源见 [价格快照](MODELS-AND-SOURCES.md)。
+价格会变化，当前精确快照放在 `config/pricing.json`，每次正式运行应复制进 run manifest 或归档目录。两个模型对同一文本的 token 数和概率输出开销可能不同，不能仅以目录单价预判赢家。
 
 ### 自部署成本
 
