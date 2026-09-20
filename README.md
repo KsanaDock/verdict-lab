@@ -4,6 +4,8 @@
 
 **状态：M1 已完成三个数据集的全量评测。** 当前代码可读取 COLDataset、ChineseHarm-Bench 与 NVIDIA Aegis 2.0，向 OpenRouter Jev 和 DeepSeek 官网 Flash 发起同例对比，并保存原始响应、token、缓存命中、延迟和成本。公网看板仅发布聚合指标，原始数据集、待审核文本与运行目录不会上传。
 
+**已部署看板：** [https://ksanadock.github.io/verdict-lab/](https://ksanadock.github.io/verdict-lab/)
+
 ## 为什么做
 
 内容审核不止输出“通过 / 不通过”。一次审核需要识别多个风险、考虑语境与例外、关联具体规则，并将结果交给解释、复核、申诉等后续环节。模型应当输出可供其他 Agent 消费的判断记录。
