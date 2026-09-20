@@ -32,6 +32,9 @@ a { color: inherit; }
 .brand-mark { display: grid; grid-template-columns: repeat(3, 5px); gap: 3px; align-items: end; width: 21px; height: 21px; }
 .brand-mark i { display: block; background: var(--cyan); border-radius: 1px; }
 .brand-mark i:nth-child(1) { height: 9px; }.brand-mark i:nth-child(2) { height: 19px; }.brand-mark i:nth-child(3) { height: 14px; background: var(--amber); }
+.topbar-actions { display: flex; align-items: center; gap: 20px; }
+.github-link { color: #b7cad4; text-decoration: none; font: 600 .72rem ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .08em; text-transform: uppercase; transition: color .2s ease; }
+.github-link:hover, .github-link:focus-visible { color: var(--cyan); }
 .topbar-meta { color: var(--muted); font: 600 .76rem ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .08em; text-transform: uppercase; display: flex; gap: .55rem; align-items: center; }
 .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 5px var(--amber-soft); }
 .hero { padding: 88px 0 72px; border-bottom: 1px solid var(--line); }
@@ -141,6 +144,8 @@ footer { padding: 36px 0 54px; display: grid; grid-template-columns: 1fr auto au
   footer { grid-template-columns: 1fr; gap: 8px; }
 }
 @media (max-width: 520px) {
+  .topbar-actions { gap: 12px; }
+  .github-link { font-size: .64rem; }
   .topbar-meta { font-size: .64rem; }
   .hero { padding-bottom: 52px; }
   h1 { font-size: 3rem; }
