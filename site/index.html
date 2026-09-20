@@ -49,7 +49,7 @@
       <section class="consumption" aria-labelledby="consumption-title">
         <div class="section-heading">
           <div><span class="index">01</span><h2 id="consumption-title">总体消耗</h2></div>
-          <p>所有数据集 · 两模型 · 包含重试</p>
+          <p>所有数据集 · 两模型 · 不含失败与重试</p>
         </div>
         <div class="total-grid">
           <article class="total-card token-card">
@@ -60,7 +60,7 @@
           <article class="total-card cost-card">
             <span class="micro-label">TOTAL COST</span>
             <strong id="total-cost">—</strong>
-            <p id="cost-note">API 调用总费用</p>
+            <p id="cost-note">最终成功结果的 API 费用</p>
           </article>
         </div>
         <div class="model-consumption" id="model-consumption"></div>
@@ -78,7 +78,7 @@
       <section class="tradeoff" aria-labelledby="tradeoff-title">
         <div class="section-heading">
           <div><span class="index">03</span><h2 id="tradeoff-title">质量、速度与价格</h2></div>
-          <p>实际调用口径，包含重试成本</p>
+          <p>最终成功结果口径，不含失败与重试</p>
         </div>
         <div class="tradeoff-grid">
           <div class="insight-card">
@@ -114,7 +114,7 @@
         </div>
         <div class="method-grid">
           <article><span>DATA</span><h3>同例配对</h3><p>两种模型处理相同样本，并按各数据集对应的安全分类体系评分，避免样本差异影响比较。</p></article>
-          <article><span>COST</span><h3>真实用量</h3><p>成本来自 API 返回的 token 与价格字段；未知账单记为下界，不猜测缺失费用。</p></article>
+          <article><span>COST</span><h3>成功结果用量</h3><p>token 与费用只汇总每个样本、每个模型的最终成功结果；失败请求和重试请求不计入。</p></article>
           <article><span>PRIVACY</span><h3>只发聚合</h3><p>公网版本不包含原始对话、模型原始响应、样本标识或任何 API 凭据。</p></article>
         </div>
         <div class="run-strip">

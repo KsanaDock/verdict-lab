@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-09-20T08:43:15.532252+00:00",
+  "generatedAt": "2026-09-20T08:45:57.039909+00:00",
   "privacy": "Aggregate metrics only; no prompts, responses, API keys, or case identifiers.",
   "totals": {
     "datasetCount": 3,
     "caseCount": 13251,
     "pairedCompleted": 13251,
-    "promptTokens": 34473399,
-    "completionTokens": 4579689,
-    "totalTokens": 39053088,
-    "costUsd": 2.217778143,
-    "costIsLowerBound": true,
+    "promptTokens": 34467547,
+    "completionTokens": 4578942,
+    "totalTokens": 39046489,
+    "costUsd": 2.2172047829999997,
+    "costIsLowerBound": false,
     "models": [
       {
         "id": "deepseek",
         "name": "DeepSeek Flash",
-        "promptTokens": 14212119,
-        "completionTokens": 1541684,
-        "totalTokens": 15753803,
-        "costUsd": 1.3668043829999998,
+        "promptTokens": 14206267,
+        "completionTokens": 1540937,
+        "totalTokens": 15747204,
+        "costUsd": 1.3662310229999999,
         "costIsLowerBound": false
       },
       {
@@ -27,7 +27,7 @@
         "completionTokens": 3038005,
         "totalTokens": 23299285,
         "costUsd": 0.85097376,
-        "costIsLowerBound": true
+        "costIsLowerBound": false
       }
     ]
   },
@@ -53,7 +53,7 @@
           "attempts": 1929,
           "failedAttempts": 1,
           "costUsd": 0.173081412,
-          "costIsLowerBound": true,
+          "costIsLowerBound": false,
           "costPerThousandUsd": 0.08977251659751037,
           "promptTokens": 4120986,
           "completionTokens": 875312,
@@ -87,13 +87,13 @@
           "remaining": 0,
           "attempts": 1931,
           "failedAttempts": 3,
-          "costUsd": 0.37243098599999996,
+          "costUsd": 0.37185762599999994,
           "costIsLowerBound": false,
-          "costPerThousandUsd": 0.1931695985477178,
-          "promptTokens": 3845107,
-          "completionTokens": 481199,
-          "cacheHitTokens": 3354112,
-          "cacheMissTokens": 490995,
+          "costPerThousandUsd": 0.19287221265560162,
+          "promptTokens": 3839255,
+          "completionTokens": 480452,
+          "cacheHitTokens": 3348992,
+          "cacheMissTokens": 490263,
           "latency": {
             "p50": 1356.5744000370614,
             "p95": 1604.0347999660298,
@@ -931,7 +931,7 @@
           "attempts": 6001,
           "failedAttempts": 1,
           "costUsd": 0.358891428,
-          "costIsLowerBound": true,
+          "costIsLowerBound": false,
           "costPerThousandUsd": 0.059815238,
           "promptTokens": 8545034,
           "completionTokens": 1146000,

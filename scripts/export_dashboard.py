@@ -57,7 +57,22 @@ def export_run(run_dir: Path) -> dict[str, Any]:
     models: list[dict[str, Any]] = []
     for provider in providers:
         item = summary[provider]
-        total_cost = item["total_cost_usd"]
+        successful_records = [
+            record
+            for (_, adapter), record in latest.items()
+            if adapter == provider and record.get("status") == "ok"
+        ]
+        known_costs = [record.get("cost_usd") for record in successful_records]
+        cost_is_lower_bound = any(cost is None for cost in known_costs)
+        successful_cost = sum(cost for cost in known_costs if cost is not None)
+        prompt_tokens = sum(
+            (record.get("usage") or {}).get("prompt_tokens") or 0
+            for record in successful_records
+        )
+        completion_tokens = sum(
+            (record.get("usage") or {}).get("completion_tokens") or 0
+            for record in successful_records
+        )
         quality = item["quality_by_labeled_direction"]
         if primary_direction is not None:
             headline = quality.get(primary_direction[0])
@@ -78,17 +93,19 @@ def export_run(run_dir: Path) -> dict[str, Any]:
                 "remaining": item["remaining_cases"],
                 "attempts": item["attempts"],
                 "failedAttempts": item["failed_attempts"],
-                "costUsd": total_cost if total_cost is not None else item["known_cost_subtotal_usd"],
-                "costIsLowerBound": total_cost is None,
-                "costPerThousandUsd": (
-                    (total_cost if total_cost is not None else item["known_cost_subtotal_usd"])
-                    / item["completed_cases"]
-                    * 1000
+                "costUsd": successful_cost,
+                "costIsLowerBound": cost_is_lower_bound,
+                "costPerThousandUsd": successful_cost / len(successful_records) * 1000,
+                "promptTokens": prompt_tokens,
+                "completionTokens": completion_tokens,
+                "cacheHitTokens": sum(
+                    (record.get("usage") or {}).get("prompt_cache_hit_tokens") or 0
+                    for record in successful_records
                 ),
-                "promptTokens": item["prompt_tokens"],
-                "completionTokens": item["completion_tokens"],
-                "cacheHitTokens": item["prompt_cache_hit_tokens"],
-                "cacheMissTokens": item["prompt_cache_miss_tokens"],
+                "cacheMissTokens": sum(
+                    (record.get("usage") or {}).get("prompt_cache_miss_tokens") or 0
+                    for record in successful_records
+                ),
                 "latency": item["latency_ms"],
                 "headline": headline,
                 "headlineLabel": headline_label,

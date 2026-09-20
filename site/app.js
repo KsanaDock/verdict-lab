@@ -1,5 +1,5 @@
 const fmtPct = (value, digits = 1) => value == null ? "—" : `${(value * 100).toFixed(digits)}%`;
-const fmtUsd = (value, lowerBound = false) => `${lowerBound ? "≥" : ""}$${value.toFixed(3)}`;
+const fmtUsd = (value, lowerBound = false, digits = 3) => `${lowerBound ? "≥" : ""}$${value.toFixed(digits)}`;
 const fmtMs = value => value >= 1000 ? `${(value / 1000).toFixed(2)}s` : `${Math.round(value)}ms`;
 const fmtCompact = value => value >= 1_000_000 ? `${(value / 1_000_000).toFixed(2)}M` : value.toLocaleString("zh-CN");
 const modelColor = id => id === "jev" ? "var(--cyan)" : "var(--amber)";
@@ -77,10 +77,10 @@ async function init() {
     const missing = totals.caseCount - totals.pairedCompleted;
     document.querySelector("#coverage-note").textContent = `${totals.pairedCompleted.toLocaleString()} / ${totals.caseCount.toLocaleString()} 条完成双模型配对${missing ? `，${missing} 条存在结构化输出缺失` : ""}。`;
     document.querySelector("#total-tokens").textContent = fmtCompact(totals.totalTokens);
-    document.querySelector("#token-breakdown").textContent = `输入 ${totals.promptTokens.toLocaleString()} + 输出 ${totals.completionTokens.toLocaleString()} token`;
-    document.querySelector("#total-cost").textContent = fmtUsd(totals.costUsd, totals.costIsLowerBound);
-    document.querySelector("#cost-note").textContent = totals.costIsLowerBound ? "已知费用下界；个别失败调用未返回费用字段" : "API 调用总费用，包含重试";
-    document.querySelector("#model-consumption").innerHTML = totals.models.map(model => `<div class="consumption-row"><strong>${model.name}</strong><span>${fmtCompact(model.totalTokens)} token</span><b>${fmtUsd(model.costUsd, model.costIsLowerBound)}</b></div>`).join("");
+    document.querySelector("#token-breakdown").textContent = `精确总计 ${totals.totalTokens.toLocaleString("zh-CN")} token · 输入 ${totals.promptTokens.toLocaleString("zh-CN")} + 输出 ${totals.completionTokens.toLocaleString("zh-CN")}`;
+    document.querySelector("#total-cost").textContent = fmtUsd(totals.costUsd, totals.costIsLowerBound, 6);
+    document.querySelector("#cost-note").textContent = totals.costIsLowerBound ? "最终成功结果的已知费用下界" : "最终成功结果费用，不含失败与重试";
+    document.querySelector("#model-consumption").innerHTML = totals.models.map(model => `<div class="consumption-row"><strong>${model.name}</strong><span>${model.totalTokens.toLocaleString("zh-CN")} token</span><b>${fmtUsd(model.costUsd, model.costIsLowerBound, 6)}</b></div>`).join("");
 
     const selector = document.querySelector("#dataset-select");
     selector.innerHTML = payload.benchmarks.map((item, index) => `<option value="${index}">${item.datasetName}</option>`).join("");
