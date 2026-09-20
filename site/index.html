@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="VerdictLab 内容安全模型基准：质量、速度、成本与分类表现的可复现对比。" />
+    <meta name="theme-color" content="#081018" />
+    <title>VerdictLab · 模型判据实验室</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="VerdictLab 首页">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>Verdict<span>Lab</span></span>
+      </a>
+      <div class="topbar-meta">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span id="header-status">载入数据</span>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="eyebrow">CONTENT SAFETY BENCHMARK / 01</div>
+        <div class="hero-grid">
+          <div>
+            <h1>同一套判据，<br /><em>谁更可靠？</em></h1>
+            <p class="lede">用真实安全数据集衡量 Jev 与 DeepSeek Flash 的质量、速度和成本。不是“通过 / 不通过”，而是逐个风险方向比较。</p>
+          </div>
+          <div class="hero-side">
+            <div class="dataset-label">当前公开数据集</div>
+            <strong id="dataset-name">Aegis AI Content Safety 2.0</strong>
+            <div class="coverage-line">
+              <span id="coverage-value">—</span>
+              <small>配对覆盖率</small>
+            </div>
+            <div class="coverage-track"><span id="coverage-bar"></span></div>
+            <p id="coverage-note">正在读取可公开的聚合结果…</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="scoreboard" aria-labelledby="scoreboard-title">
+        <div class="section-heading">
+          <div><span class="index">01</span><h2 id="scoreboard-title">核心结果</h2></div>
+          <p>阈值 0.50 · Overall unsafe</p>
+        </div>
+        <div class="model-grid" id="model-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="tradeoff" aria-labelledby="tradeoff-title">
+        <div class="section-heading">
+          <div><span class="index">02</span><h2 id="tradeoff-title">质量、速度与价格</h2></div>
+          <p>实际调用口径，包含重试成本</p>
+        </div>
+        <div class="tradeoff-grid">
+          <div class="insight-card">
+            <span class="micro-label">READOUT</span>
+            <h3 id="headline-insight">读取中…</h3>
+            <p id="insight-copy"></p>
+            <div class="legend" id="legend"></div>
+          </div>
+          <div class="metric-rows" id="metric-rows"></div>
+        </div>
+      </section>
+
+      <section class="categories" aria-labelledby="categories-title">
+        <div class="section-heading">
+          <div><span class="index">03</span><h2 id="categories-title">风险方向表现</h2></div>
+          <div class="category-controls">
+            <label for="metric-select">指标</label>
+            <select id="metric-select">
+              <option value="f1">F1</option>
+              <option value="recall">召回率</option>
+              <option value="precision">精确率</option>
+              <option value="accuracy">准确率</option>
+            </select>
+          </div>
+        </div>
+        <div class="category-note">按样本中的阳性数量排序。类别样本极少时，单项分数不宜独立解读。</div>
+        <div class="category-chart" id="category-chart"></div>
+      </section>
+
+      <section class="method" aria-labelledby="method-title">
+        <div class="section-heading">
+          <div><span class="index">04</span><h2 id="method-title">读数说明</h2></div>
+        </div>
+        <div class="method-grid">
+          <article><span>DATA</span><h3>同例配对</h3><p>两种模型处理同一批对话与同一套 24 项安全分类，避免样本差异影响比较。</p></article>
+          <article><span>COST</span><h3>真实用量</h3><p>成本来自 API 返回的 token 与价格字段；未知账单记为下界，不猜测缺失费用。</p></article>
+          <article><span>PRIVACY</span><h3>只发聚合</h3><p>公网版本不包含原始对话、模型原始响应、样本标识或任何 API 凭据。</p></article>
+        </div>
+        <div class="run-strip">
+          <span>RUN <b id="run-id">—</b></span>
+          <span>TAXONOMY <b id="taxonomy">—</b></span>
+          <span>UPDATED <b id="updated-at">—</b></span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="brand footer-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>VerdictLab</span></div>
+      <p>可复现的内容安全模型评测。</p>
+      <p>ChineseHarm-Bench 与 COLDataset 数据将在完整运行后加入。</p>
+    </footer>
+
+    <template id="model-card-template">
+      <article class="model-card">
+        <div class="model-top"><div><span class="model-kicker"></span><h3></h3></div><span class="coverage-badge"></span></div>
+        <div class="primary-score"><strong></strong><span>F1<br />overall unsafe</span></div>
+        <div class="score-pair"><div><small>召回率</small><b class="recall"></b></div><div><small>精确率</small><b class="precision"></b></div></div>
+        <div class="model-foot"><span class="latency"></span><span class="cost"></span></div>
+      </article>
+    </template>
+    <script src="app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,883 @@
+{
+  "generatedAt": "2026-09-20T07:02:33.157941+00:00",
+  "privacy": "Aggregate metrics only; no prompts, responses, API keys, or case identifiers.",
+  "benchmarks": [
+    {
+      "runId": "20260920T052410Z-491ec22b",
+      "dataset": "aegis",
+      "datasetName": "Aegis AI Content Safety 2.0",
+      "split": "test",
+      "status": "paused",
+      "updatedAt": "2026-09-20T06:41:55.609174+00:00",
+      "caseCount": 1928,
+      "pairedCompleted": 1927,
+      "pairedCoverage": 0.9994813278008299,
+      "threshold": 0.5,
+      "taxonomyVersion": "aegis-2.0-conversation-v0.1",
+      "models": [
+        {
+          "id": "jev",
+          "name": "Jev 1.13",
+          "model": "typesafe/jev-1.13",
+          "completed": 1928,
+          "remaining": 0,
+          "attempts": 1929,
+          "failedAttempts": 1,
+          "costUsd": 0.173081412,
+          "costIsLowerBound": true,
+          "costPerThousandUsd": 0.08977251659751037,
+          "promptTokens": 4120986,
+          "completionTokens": 875312,
+          "cacheHitTokens": 0,
+          "cacheMissTokens": 0,
+          "latency": {
+            "p50": 365.95439998200163,
+            "p95": 500.91750000137836,
+            "p99": 686.0871999524534
+          },
+          "overall": {
+            "labeled_cases": 1928,
+            "scored_cases": 1928,
+            "missing_predictions": 0,
+            "tp": 847,
+            "tn": 772,
+            "fp": 117,
+            "fn": 192,
+            "precision": 0.8786307053941909,
+            "recall": 0.8152069297401348,
+            "f1": 0.8457314028956565,
+            "accuracy": 0.8397302904564315
+          }
+        },
+        {
+          "id": "deepseek",
+          "name": "DeepSeek Flash",
+          "model": "deepseek-flash",
+          "completed": 1927,
+          "remaining": 1,
+          "attempts": 1930,
+          "failedAttempts": 3,
+          "costUsd": 0.372234894,
+          "costIsLowerBound": false,
+          "costPerThousandUsd": 0.1931680819927348,
+          "promptTokens": 3843201,
+          "completionTokens": 480941,
+          "cacheHitTokens": 3352448,
+          "cacheMissTokens": 490753,
+          "latency": {
+            "p50": 1356.5744000370614,
+            "p95": 1604.0347999660298,
+            "p99": 1733.420800010208
+          },
+          "overall": {
+            "labeled_cases": 1928,
+            "scored_cases": 1928,
+            "missing_predictions": 0,
+            "tp": 724,
+            "tn": 830,
+            "fp": 59,
+            "fn": 315,
+            "precision": 0.9246487867177522,
+            "recall": 0.6968238691049086,
+            "f1": 0.7947310647639955,
+            "accuracy": 0.8060165975103735
+          }
+        }
+      ],
+      "directions": [
+        {
+          "id": "controlled_substances",
+          "name": "Controlled / regulated substances",
+          "support": 114,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 61,
+              "tn": 1803,
+              "fp": 11,
+              "fn": 53,
+              "precision": 0.8472222222222222,
+              "recall": 0.5350877192982456,
+              "f1": 0.6559139784946236,
+              "accuracy": 0.966804979253112
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 77,
+              "tn": 1804,
+              "fp": 10,
+              "fn": 37,
+              "precision": 0.8850574712643678,
+              "recall": 0.6754385964912281,
+              "f1": 0.7661691542288558,
+              "accuracy": 0.9756224066390041
+            }
+          }
+        },
+        {
+          "id": "copyright_plagiarism",
+          "name": "Copyright / trademark / plagiarism",
+          "support": 4,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 0,
+              "tn": 1908,
+              "fp": 16,
+              "fn": 4,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": null,
+              "accuracy": 0.9896265560165975
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 0,
+              "tn": 1917,
+              "fp": 7,
+              "fn": 4,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": null,
+              "accuracy": 0.9942946058091287
+            }
+          }
+        },
+        {
+          "id": "criminal_planning",
+          "name": "Criminal planning / confessions",
+          "support": 509,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 248,
+              "tn": 1372,
+              "fp": 47,
+              "fn": 261,
+              "precision": 0.8406779661016949,
+              "recall": 0.48722986247544203,
+              "f1": 0.6169154228855721,
+              "accuracy": 0.8402489626556017
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 388,
+              "tn": 1355,
+              "fp": 64,
+              "fn": 121,
+              "precision": 0.8584070796460177,
+              "recall": 0.762278978388998,
+              "f1": 0.8074921956295525,
+              "accuracy": 0.904045643153527
+            }
+          }
+        },
+        {
+          "id": "fraud_deception",
+          "name": "Fraud / deception",
+          "support": 14,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 8,
+              "tn": 1711,
+              "fp": 203,
+              "fn": 6,
+              "precision": 0.037914691943127965,
+              "recall": 0.5714285714285714,
+              "f1": 0.07111111111111112,
+              "accuracy": 0.891597510373444
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 9,
+              "tn": 1797,
+              "fp": 117,
+              "fn": 5,
+              "precision": 0.07142857142857142,
+              "recall": 0.6428571428571429,
+              "f1": 0.1285714285714286,
+              "accuracy": 0.9367219917012448
+            }
+          }
+        },
+        {
+          "id": "guns_illegal_weapons",
+          "name": "Guns and illegal weapons",
+          "support": 62,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 25,
+              "tn": 1863,
+              "fp": 3,
+              "fn": 37,
+              "precision": 0.8928571428571429,
+              "recall": 0.4032258064516129,
+              "f1": 0.5555555555555555,
+              "accuracy": 0.979253112033195
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 32,
+              "tn": 1855,
+              "fp": 11,
+              "fn": 30,
+              "precision": 0.7441860465116279,
+              "recall": 0.5161290322580645,
+              "f1": 0.6095238095238095,
+              "accuracy": 0.9787344398340249
+            }
+          }
+        },
+        {
+          "id": "harassment",
+          "name": "Harassment",
+          "support": 152,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 59,
+              "tn": 1667,
+              "fp": 109,
+              "fn": 93,
+              "precision": 0.35119047619047616,
+              "recall": 0.3881578947368421,
+              "f1": 0.36874999999999997,
+              "accuracy": 0.8952282157676349
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 61,
+              "tn": 1690,
+              "fp": 86,
+              "fn": 91,
+              "precision": 0.41496598639455784,
+              "recall": 0.40131578947368424,
+              "f1": 0.40802675585284276,
+              "accuracy": 0.908195020746888
+            }
+          }
+        },
+        {
+          "id": "hate_identity",
+          "name": "Hate / identity hate",
+          "support": 182,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 110,
+              "tn": 1730,
+              "fp": 16,
+              "fn": 72,
+              "precision": 0.873015873015873,
+              "recall": 0.6043956043956044,
+              "f1": 0.7142857142857142,
+              "accuracy": 0.9543568464730291
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 117,
+              "tn": 1726,
+              "fp": 20,
+              "fn": 65,
+              "precision": 0.8540145985401459,
+              "recall": 0.6428571428571429,
+              "f1": 0.7335423197492164,
+              "accuracy": 0.9559128630705395
+            }
+          }
+        },
+        {
+          "id": "high_risk_government_decision",
+          "name": "High-risk government decision making",
+          "support": 3,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 0,
+              "tn": 1924,
+              "fp": 1,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": null,
+              "accuracy": 0.9979253112033195
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 0,
+              "tn": 1923,
+              "fp": 2,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": null,
+              "accuracy": 0.9974066390041494
+            }
+          }
+        },
+        {
+          "id": "illegal_activity",
+          "name": "Illegal activity",
+          "support": 12,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 1,
+              "tn": 1638,
+              "fp": 278,
+              "fn": 11,
+              "precision": 0.0035842293906810036,
+              "recall": 0.08333333333333333,
+              "f1": 0.006872852233676976,
+              "accuracy": 0.850103734439834
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 4,
+              "tn": 1436,
+              "fp": 480,
+              "fn": 8,
+              "precision": 0.008264462809917356,
+              "recall": 0.3333333333333333,
+              "f1": 0.016129032258064516,
+              "accuracy": 0.7468879668049793
+            }
+          }
+        },
+        {
+          "id": "immoral_unethical",
+          "name": "Immoral / unethical",
+          "support": 15,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 12,
+              "tn": 1409,
+              "fp": 504,
+              "fn": 3,
+              "precision": 0.023255813953488372,
+              "recall": 0.8,
+              "f1": 0.04519774011299434,
+              "accuracy": 0.7370331950207469
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 10,
+              "tn": 1312,
+              "fp": 601,
+              "fn": 5,
+              "precision": 0.016366612111292964,
+              "recall": 0.6666666666666666,
+              "f1": 0.031948881789137386,
+              "accuracy": 0.6856846473029046
+            }
+          }
+        },
+        {
+          "id": "malware",
+          "name": "Malware",
+          "support": 8,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 1,
+              "tn": 1918,
+              "fp": 2,
+              "fn": 7,
+              "precision": 0.3333333333333333,
+              "recall": 0.125,
+              "f1": 0.18181818181818182,
+              "accuracy": 0.9953319502074689
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 3,
+              "tn": 1911,
+              "fp": 9,
+              "fn": 5,
+              "precision": 0.25,
+              "recall": 0.375,
+              "f1": 0.3,
+              "accuracy": 0.9927385892116183
+            }
+          }
+        },
+        {
+          "id": "manipulation",
+          "name": "Manipulation",
+          "support": 2,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 2,
+              "tn": 1756,
+              "fp": 170,
+              "fn": 0,
+              "precision": 0.011627906976744186,
+              "recall": 1.0,
+              "f1": 0.022988505747126436,
+              "accuracy": 0.9118257261410788
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 1,
+              "tn": 1827,
+              "fp": 99,
+              "fn": 1,
+              "precision": 0.01,
+              "recall": 0.5,
+              "f1": 0.0196078431372549,
+              "accuracy": 0.9481327800829875
+            }
+          }
+        },
+        {
+          "id": "needs_caution",
+          "name": "Needs caution",
+          "support": 235,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 199,
+              "tn": 352,
+              "fp": 1341,
+              "fn": 36,
+              "precision": 0.1292207792207792,
+              "recall": 0.8468085106382979,
+              "f1": 0.22422535211267602,
+              "accuracy": 0.2857883817427386
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 75,
+              "tn": 850,
+              "fp": 843,
+              "fn": 160,
+              "precision": 0.08169934640522876,
+              "recall": 0.3191489361702128,
+              "f1": 0.13009540329575023,
+              "accuracy": 0.47977178423236516
+            }
+          }
+        },
+        {
+          "id": "other",
+          "name": "Other safety risk",
+          "support": 14,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 7,
+              "tn": 1315,
+              "fp": 599,
+              "fn": 7,
+              "precision": 0.01155115511551155,
+              "recall": 0.5,
+              "f1": 0.02258064516129032,
+              "accuracy": 0.6856846473029046
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 0,
+              "tn": 1912,
+              "fp": 2,
+              "fn": 14,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": null,
+              "accuracy": 0.991701244813278
+            }
+          }
+        },
+        {
+          "id": "pii_privacy",
+          "name": "PII / privacy",
+          "support": 101,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 75,
+              "tn": 1783,
+              "fp": 44,
+              "fn": 26,
+              "precision": 0.6302521008403361,
+              "recall": 0.7425742574257426,
+              "f1": 0.6818181818181818,
+              "accuracy": 0.9636929460580913
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 59,
+              "tn": 1814,
+              "fp": 13,
+              "fn": 42,
+              "precision": 0.8194444444444444,
+              "recall": 0.5841584158415841,
+              "f1": 0.6820809248554913,
+              "accuracy": 0.9714730290456431
+            }
+          }
+        },
+        {
+          "id": "political_misinformation",
+          "name": "Political / misinformation / conspiracy",
+          "support": 23,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 4,
+              "tn": 1880,
+              "fp": 25,
+              "fn": 19,
+              "precision": 0.13793103448275862,
+              "recall": 0.17391304347826086,
+              "f1": 0.15384615384615385,
+              "accuracy": 0.9771784232365145
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 4,
+              "tn": 1878,
+              "fp": 27,
+              "fn": 19,
+              "precision": 0.12903225806451613,
+              "recall": 0.17391304347826086,
+              "f1": 0.14814814814814814,
+              "accuracy": 0.9761410788381742
+            }
+          }
+        },
+        {
+          "id": "profanity",
+          "name": "Profanity",
+          "support": 100,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 68,
+              "tn": 1791,
+              "fp": 37,
+              "fn": 32,
+              "precision": 0.6476190476190476,
+              "recall": 0.68,
+              "f1": 0.6634146341463415,
+              "accuracy": 0.9642116182572614
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1927,
+              "missing_predictions": 1,
+              "tp": 55,
+              "tn": 1816,
+              "fp": 11,
+              "fn": 45,
+              "precision": 0.8333333333333334,
+              "recall": 0.55,
+              "f1": 0.6626506024096386,
+              "accuracy": 0.9709392838609238
+            }
+          }
+        },
+        {
+          "id": "self_harm",
+          "name": "Suicide and self harm",
+          "support": 38,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 35,
+              "tn": 1880,
+              "fp": 10,
+              "fn": 3,
+              "precision": 0.7777777777777778,
+              "recall": 0.9210526315789473,
+              "f1": 0.8433734939759038,
+              "accuracy": 0.9932572614107884
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 31,
+              "tn": 1880,
+              "fp": 10,
+              "fn": 7,
+              "precision": 0.7560975609756098,
+              "recall": 0.8157894736842105,
+              "f1": 0.7848101265822786,
+              "accuracy": 0.9911825726141079
+            }
+          }
+        },
+        {
+          "id": "sexual",
+          "name": "Sexual",
+          "support": 99,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 54,
+              "tn": 1818,
+              "fp": 11,
+              "fn": 45,
+              "precision": 0.8307692307692308,
+              "recall": 0.5454545454545454,
+              "f1": 0.6585365853658536,
+              "accuracy": 0.970954356846473
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 40,
+              "tn": 1818,
+              "fp": 11,
+              "fn": 59,
+              "precision": 0.7843137254901961,
+              "recall": 0.40404040404040403,
+              "f1": 0.5333333333333333,
+              "accuracy": 0.9636929460580913
+            }
+          }
+        },
+        {
+          "id": "sexual_minors",
+          "name": "Sexual involving minors",
+          "support": 11,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 8,
+              "tn": 1914,
+              "fp": 3,
+              "fn": 3,
+              "precision": 0.7272727272727273,
+              "recall": 0.7272727272727273,
+              "f1": 0.7272727272727273,
+              "accuracy": 0.9968879668049793
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 8,
+              "tn": 1915,
+              "fp": 2,
+              "fn": 3,
+              "precision": 0.8,
+              "recall": 0.7272727272727273,
+              "f1": 0.761904761904762,
+              "accuracy": 0.9974066390041494
+            }
+          }
+        },
+        {
+          "id": "threat",
+          "name": "Threat",
+          "support": 16,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 9,
+              "tn": 1799,
+              "fp": 113,
+              "fn": 7,
+              "precision": 0.07377049180327869,
+              "recall": 0.5625,
+              "f1": 0.13043478260869565,
+              "accuracy": 0.9377593360995851
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 8,
+              "tn": 1833,
+              "fp": 79,
+              "fn": 8,
+              "precision": 0.09195402298850575,
+              "recall": 0.5,
+              "f1": 0.1553398058252427,
+              "accuracy": 0.9548755186721992
+            }
+          }
+        },
+        {
+          "id": "unauthorized_advice",
+          "name": "Unauthorized advice",
+          "support": 28,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 0,
+              "tn": 1807,
+              "fp": 93,
+              "fn": 28,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": null,
+              "accuracy": 0.9372406639004149
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 0,
+              "tn": 1871,
+              "fp": 29,
+              "fn": 28,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": null,
+              "accuracy": 0.9704356846473029
+            }
+          }
+        },
+        {
+          "id": "unsafe_overall",
+          "name": "Overall unsafe",
+          "support": 1039,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 847,
+              "tn": 772,
+              "fp": 117,
+              "fn": 192,
+              "precision": 0.8786307053941909,
+              "recall": 0.8152069297401348,
+              "f1": 0.8457314028956565,
+              "accuracy": 0.8397302904564315
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 724,
+              "tn": 830,
+              "fp": 59,
+              "fn": 315,
+              "precision": 0.9246487867177522,
+              "recall": 0.6968238691049086,
+              "f1": 0.7947310647639955,
+              "accuracy": 0.8060165975103735
+            }
+          }
+        },
+        {
+          "id": "violence",
+          "name": "Violence",
+          "support": 178,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 106,
+              "tn": 1628,
+              "fp": 122,
+              "fn": 72,
+              "precision": 0.4649122807017544,
+              "recall": 0.5955056179775281,
+              "f1": 0.5221674876847291,
+              "accuracy": 0.8993775933609959
+            },
+            "deepseek": {
+              "labeled_cases": 1928,
+              "scored_cases": 1928,
+              "missing_predictions": 0,
+              "tp": 114,
+              "tn": 1631,
+              "fp": 119,
+              "fn": 64,
+              "precision": 0.4892703862660944,
+              "recall": 0.6404494382022472,
+              "f1": 0.5547445255474451,
+              "accuracy": 0.9050829875518672
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
