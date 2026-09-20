@@ -12,6 +12,17 @@ MODEL_NAMES = {
     "deepseek": "DeepSeek Flash",
 }
 
+DATASET_NAMES = {
+    "aegis": "Aegis AI Content Safety 2.0",
+    "chineseharm": "ChineseHarm-Bench",
+    "cold": "COLDataset",
+}
+
+PRIMARY_DIRECTIONS = {
+    "aegis": ("unsafe_overall", "Overall unsafe"),
+    "cold": ("abuse_harassment", "Abuse / harassment"),
+}
+
 
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -41,10 +52,23 @@ def export_run(run_dir: Path) -> dict[str, Any]:
     )
     direction_names = {item["id"]: item["name"] for item in taxonomy["directions"]}
 
+    dataset_id = manifest["metadata"]["dataset"]
+    primary_direction = PRIMARY_DIRECTIONS.get(dataset_id)
     models: list[dict[str, Any]] = []
     for provider in providers:
         item = summary[provider]
         total_cost = item["total_cost_usd"]
+        quality = item["quality_by_labeled_direction"]
+        if primary_direction is not None:
+            headline = quality.get(primary_direction[0])
+            headline_label = primary_direction[1]
+        else:
+            labeled = [metric for metric in quality.values() if metric.get("f1") is not None]
+            headline = {
+                metric_name: sum(metric[metric_name] for metric in labeled) / len(labeled)
+                for metric_name in ("precision", "recall", "f1", "accuracy")
+            }
+            headline_label = "Macro average"
         models.append(
             {
                 "id": provider,
@@ -66,7 +90,8 @@ def export_run(run_dir: Path) -> dict[str, Any]:
                 "cacheHitTokens": item["prompt_cache_hit_tokens"],
                 "cacheMissTokens": item["prompt_cache_miss_tokens"],
                 "latency": item["latency_ms"],
-                "overall": item["quality_by_labeled_direction"].get("unsafe_overall"),
+                "headline": headline,
+                "headlineLabel": headline_label,
             }
         )
 
@@ -92,11 +117,8 @@ def export_run(run_dir: Path) -> dict[str, Any]:
 
     return {
         "runId": manifest["run_id"],
-        "dataset": manifest["metadata"]["dataset"],
-        "datasetName": "Aegis AI Content Safety 2.0"
-        if manifest["metadata"]["dataset"] == "aegis"
-        else manifest["metadata"]["dataset"],
-        "split": "test",
+        "dataset": dataset_id,
+        "datasetName": DATASET_NAMES.get(dataset_id, dataset_id),
         "status": manifest["status"],
         "updatedAt": manifest["updated_at"],
         "caseCount": manifest["case_count"],
@@ -114,10 +136,44 @@ def main() -> None:
     parser.add_argument("--run", action="append", required=True, type=Path)
     parser.add_argument("--output", default=Path("site/data/benchmarks.json"), type=Path)
     args = parser.parse_args()
+    benchmarks = [export_run(path) for path in args.run]
+    provider_ids = sorted({model["id"] for item in benchmarks for model in item["models"]})
+    aggregate_models = []
+    for provider_id in provider_ids:
+        models = [
+            model
+            for benchmark in benchmarks
+            for model in benchmark["models"]
+            if model["id"] == provider_id
+        ]
+        aggregate_models.append(
+            {
+                "id": provider_id,
+                "name": MODEL_NAMES.get(provider_id, provider_id),
+                "promptTokens": sum(model["promptTokens"] for model in models),
+                "completionTokens": sum(model["completionTokens"] for model in models),
+                "totalTokens": sum(
+                    model["promptTokens"] + model["completionTokens"] for model in models
+                ),
+                "costUsd": sum(model["costUsd"] for model in models),
+                "costIsLowerBound": any(model["costIsLowerBound"] for model in models),
+            }
+        )
     payload = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "privacy": "Aggregate metrics only; no prompts, responses, API keys, or case identifiers.",
-        "benchmarks": [export_run(path) for path in args.run],
+        "totals": {
+            "datasetCount": len(benchmarks),
+            "caseCount": sum(item["caseCount"] for item in benchmarks),
+            "pairedCompleted": sum(item["pairedCompleted"] for item in benchmarks),
+            "promptTokens": sum(model["promptTokens"] for model in aggregate_models),
+            "completionTokens": sum(model["completionTokens"] for model in aggregate_models),
+            "totalTokens": sum(model["totalTokens"] for model in aggregate_models),
+            "costUsd": sum(model["costUsd"] for model in aggregate_models),
+            "costIsLowerBound": any(model["costIsLowerBound"] for model in aggregate_models),
+            "models": aggregate_models,
+        },
+        "benchmarks": benchmarks,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")

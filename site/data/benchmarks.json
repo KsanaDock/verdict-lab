@@ -1,12 +1,41 @@
 {
-  "generatedAt": "2026-09-20T07:02:33.157941+00:00",
+  "generatedAt": "2026-09-20T08:36:45.472479+00:00",
   "privacy": "Aggregate metrics only; no prompts, responses, API keys, or case identifiers.",
+  "totals": {
+    "datasetCount": 3,
+    "caseCount": 13251,
+    "pairedCompleted": 13250,
+    "promptTokens": 34471493,
+    "completionTokens": 4579431,
+    "totalTokens": 39050924,
+    "costUsd": 2.217582051,
+    "costIsLowerBound": true,
+    "models": [
+      {
+        "id": "deepseek",
+        "name": "DeepSeek Flash",
+        "promptTokens": 14210213,
+        "completionTokens": 1541426,
+        "totalTokens": 15751639,
+        "costUsd": 1.366608291,
+        "costIsLowerBound": false
+      },
+      {
+        "id": "jev",
+        "name": "Jev 1.13",
+        "promptTokens": 20261280,
+        "completionTokens": 3038005,
+        "totalTokens": 23299285,
+        "costUsd": 0.85097376,
+        "costIsLowerBound": true
+      }
+    ]
+  },
   "benchmarks": [
     {
       "runId": "20260920T052410Z-491ec22b",
       "dataset": "aegis",
       "datasetName": "Aegis AI Content Safety 2.0",
-      "split": "test",
       "status": "paused",
       "updatedAt": "2026-09-20T06:41:55.609174+00:00",
       "caseCount": 1928,
@@ -35,7 +64,7 @@
             "p95": 500.91750000137836,
             "p99": 686.0871999524534
           },
-          "overall": {
+          "headline": {
             "labeled_cases": 1928,
             "scored_cases": 1928,
             "missing_predictions": 0,
@@ -47,7 +76,8 @@
             "recall": 0.8152069297401348,
             "f1": 0.8457314028956565,
             "accuracy": 0.8397302904564315
-          }
+          },
+          "headlineLabel": "Overall unsafe"
         },
         {
           "id": "deepseek",
@@ -69,7 +99,7 @@
             "p95": 1604.0347999660298,
             "p99": 1733.420800010208
           },
-          "overall": {
+          "headline": {
             "labeled_cases": 1928,
             "scored_cases": 1928,
             "missing_predictions": 0,
@@ -81,7 +111,8 @@
             "recall": 0.6968238691049086,
             "f1": 0.7947310647639955,
             "accuracy": 0.8060165975103735
-          }
+          },
+          "headlineLabel": "Overall unsafe"
         }
       ],
       "directions": [
@@ -874,6 +905,362 @@
               "recall": 0.6404494382022472,
               "f1": 0.5547445255474451,
               "accuracy": 0.9050829875518672
+            }
+          }
+        }
+      ]
+    },
+    {
+      "runId": "20260920T052258Z-b012cf67",
+      "dataset": "chineseharm",
+      "datasetName": "ChineseHarm-Bench",
+      "status": "complete",
+      "updatedAt": "2026-09-20T07:50:23.910586+00:00",
+      "caseCount": 6000,
+      "pairedCompleted": 6000,
+      "pairedCoverage": 1.0,
+      "threshold": 0.5,
+      "taxonomyVersion": "zh-risk-directions-v0.1",
+      "models": [
+        {
+          "id": "jev",
+          "name": "Jev 1.13",
+          "model": "typesafe/jev-1.13",
+          "completed": 6000,
+          "remaining": 0,
+          "attempts": 6001,
+          "failedAttempts": 1,
+          "costUsd": 0.358891428,
+          "costIsLowerBound": true,
+          "costPerThousandUsd": 0.059815238,
+          "promptTokens": 8545034,
+          "completionTokens": 1146000,
+          "cacheHitTokens": 0,
+          "cacheMissTokens": 0,
+          "latency": {
+            "p50": 353.9536999887787,
+            "p95": 503.484099986963,
+            "p99": 726.6151999938302
+          },
+          "headline": {
+            "precision": 0.5750759739683663,
+            "recall": 0.7264,
+            "f1": 0.61265243545655,
+            "accuracy": 0.8330666666666667
+          },
+          "headlineLabel": "Macro average"
+        },
+        {
+          "id": "deepseek",
+          "name": "DeepSeek Flash",
+          "model": "deepseek-flash",
+          "completed": 6000,
+          "remaining": 0,
+          "attempts": 6000,
+          "failedAttempts": 0,
+          "costUsd": 0.547923678,
+          "costIsLowerBound": false,
+          "costPerThousandUsd": 0.091320613,
+          "promptTokens": 5485445,
+          "completionTokens": 574514,
+          "cacheHitTokens": 4214976,
+          "cacheMissTokens": 1270469,
+          "latency": {
+            "p50": 950.9917999967001,
+            "p95": 1179.239899967797,
+            "p99": 1321.3409000309184
+          },
+          "headline": {
+            "precision": 0.699046691612166,
+            "recall": 0.7013999999999999,
+            "f1": 0.6597274995567273,
+            "accuracy": 0.8602666666666666
+          },
+          "headlineLabel": "Macro average"
+        }
+      ],
+      "directions": [
+        {
+          "id": "abuse_harassment",
+          "name": "辱骂攻击",
+          "support": 1000,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 740,
+              "tn": 4768,
+              "fp": 232,
+              "fn": 260,
+              "precision": 0.7613168724279835,
+              "recall": 0.74,
+              "f1": 0.7505070993914806,
+              "accuracy": 0.918
+            },
+            "deepseek": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 819,
+              "tn": 4814,
+              "fp": 186,
+              "fn": 181,
+              "precision": 0.8149253731343283,
+              "recall": 0.819,
+              "f1": 0.8169576059850373,
+              "accuracy": 0.9388333333333333
+            }
+          }
+        },
+        {
+          "id": "fraud",
+          "name": "欺诈",
+          "support": 1000,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 843,
+              "tn": 3657,
+              "fp": 1343,
+              "fn": 157,
+              "precision": 0.3856358645928637,
+              "recall": 0.843,
+              "f1": 0.5291902071563088,
+              "accuracy": 0.75
+            },
+            "deepseek": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 708,
+              "tn": 4270,
+              "fp": 730,
+              "fn": 292,
+              "precision": 0.49235048678720444,
+              "recall": 0.708,
+              "f1": 0.5808039376538146,
+              "accuracy": 0.8296666666666667
+            }
+          }
+        },
+        {
+          "id": "gambling",
+          "name": "赌博博彩",
+          "support": 1000,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 669,
+              "tn": 4802,
+              "fp": 198,
+              "fn": 331,
+              "precision": 0.7716262975778547,
+              "recall": 0.669,
+              "f1": 0.7166577396893412,
+              "accuracy": 0.9118333333333334
+            },
+            "deepseek": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 704,
+              "tn": 4959,
+              "fp": 41,
+              "fn": 296,
+              "precision": 0.9449664429530201,
+              "recall": 0.704,
+              "f1": 0.8068767908309455,
+              "accuracy": 0.9438333333333333
+            }
+          }
+        },
+        {
+          "id": "illicit_advertising",
+          "name": "黑产或违规广告",
+          "support": 1000,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 852,
+              "tn": 3491,
+              "fp": 1509,
+              "fn": 148,
+              "precision": 0.36086404066073696,
+              "recall": 0.852,
+              "f1": 0.5069919666765843,
+              "accuracy": 0.7238333333333333
+            },
+            "deepseek": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 781,
+              "tn": 3296,
+              "fp": 1704,
+              "fn": 219,
+              "precision": 0.3142857142857143,
+              "recall": 0.781,
+              "f1": 0.44820659971305604,
+              "accuracy": 0.6795
+            }
+          }
+        },
+        {
+          "id": "pornography",
+          "name": "低俗色情",
+          "support": 1000,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 528,
+              "tn": 4642,
+              "fp": 358,
+              "fn": 472,
+              "precision": 0.5959367945823928,
+              "recall": 0.528,
+              "f1": 0.559915164369035,
+              "accuracy": 0.8616666666666667
+            },
+            "deepseek": {
+              "labeled_cases": 6000,
+              "scored_cases": 6000,
+              "missing_predictions": 0,
+              "tp": 495,
+              "tn": 4962,
+              "fp": 38,
+              "fn": 505,
+              "precision": 0.9287054409005628,
+              "recall": 0.495,
+              "f1": 0.6457925636007827,
+              "accuracy": 0.9095
+            }
+          }
+        }
+      ]
+    },
+    {
+      "runId": "20260920T063553Z-334dd608",
+      "dataset": "cold",
+      "datasetName": "COLDataset",
+      "status": "complete",
+      "updatedAt": "2026-09-20T08:33:16.193167+00:00",
+      "caseCount": 5323,
+      "pairedCompleted": 5323,
+      "pairedCoverage": 1.0,
+      "threshold": 0.5,
+      "taxonomyVersion": "zh-risk-directions-v0.1",
+      "models": [
+        {
+          "id": "jev",
+          "name": "Jev 1.13",
+          "model": "typesafe/jev-1.13",
+          "completed": 5323,
+          "remaining": 0,
+          "attempts": 5323,
+          "failedAttempts": 0,
+          "costUsd": 0.31900092,
+          "costIsLowerBound": false,
+          "costPerThousandUsd": 0.059928784520007515,
+          "promptTokens": 7595260,
+          "completionTokens": 1016693,
+          "cacheHitTokens": 0,
+          "cacheMissTokens": 0,
+          "latency": {
+            "p50": 361.63940001279116,
+            "p95": 523.6114999861456,
+            "p99": 784.974800015334
+          },
+          "headline": {
+            "labeled_cases": 5323,
+            "scored_cases": 5323,
+            "missing_predictions": 0,
+            "tp": 1337,
+            "tn": 2871,
+            "fp": 345,
+            "fn": 770,
+            "precision": 0.7948870392390012,
+            "recall": 0.6345514950166113,
+            "f1": 0.7057271047769861,
+            "accuracy": 0.7905316550817209
+          },
+          "headlineLabel": "Abuse / harassment"
+        },
+        {
+          "id": "deepseek",
+          "name": "DeepSeek Flash",
+          "model": "deepseek-flash",
+          "completed": 5323,
+          "remaining": 0,
+          "attempts": 5323,
+          "failedAttempts": 0,
+          "costUsd": 0.44644971899999997,
+          "costIsLowerBound": false,
+          "costPerThousandUsd": 0.08387182397144467,
+          "promptTokens": 4881567,
+          "completionTokens": 485971,
+          "cacheHitTokens": 3927673,
+          "cacheMissTokens": 953894,
+          "latency": {
+            "p50": 907.8946000081487,
+            "p95": 1154.6621000161394,
+            "p99": 1291.5705000050366
+          },
+          "headline": {
+            "labeled_cases": 5323,
+            "scored_cases": 5323,
+            "missing_predictions": 0,
+            "tp": 1096,
+            "tn": 3020,
+            "fp": 196,
+            "fn": 1011,
+            "precision": 0.848297213622291,
+            "recall": 0.5201708590412909,
+            "f1": 0.6448955575169167,
+            "accuracy": 0.7732481683261319
+          },
+          "headlineLabel": "Abuse / harassment"
+        }
+      ],
+      "directions": [
+        {
+          "id": "abuse_harassment",
+          "name": "辱骂攻击",
+          "support": 2107,
+          "metrics": {
+            "jev": {
+              "labeled_cases": 5323,
+              "scored_cases": 5323,
+              "missing_predictions": 0,
+              "tp": 1337,
+              "tn": 2871,
+              "fp": 345,
+              "fn": 770,
+              "precision": 0.7948870392390012,
+              "recall": 0.6345514950166113,
+              "f1": 0.7057271047769861,
+              "accuracy": 0.7905316550817209
+            },
+            "deepseek": {
+              "labeled_cases": 5323,
+              "scored_cases": 5323,
+              "missing_predictions": 0,
+              "tp": 1096,
+              "tn": 3020,
+              "fp": 196,
+              "fn": 1011,
+              "precision": 0.848297213622291,
+              "recall": 0.5201708590412909,
+              "f1": 0.6448955575169167,
+              "accuracy": 0.7732481683261319
             }
           }
         }

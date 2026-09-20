@@ -34,8 +34,8 @@
             <p class="lede">用真实安全数据集衡量 Jev 与 DeepSeek Flash 的质量、速度和成本。不是“通过 / 不通过”，而是逐个风险方向比较。</p>
           </div>
           <div class="hero-side">
-            <div class="dataset-label">当前公开数据集</div>
-            <strong id="dataset-name">Aegis AI Content Safety 2.0</strong>
+            <div class="dataset-label">当前公开范围</div>
+            <strong id="dataset-name">3 个内容安全数据集</strong>
             <div class="coverage-line">
               <span id="coverage-value">—</span>
               <small>配对覆盖率</small>
@@ -46,17 +46,38 @@
         </div>
       </section>
 
+      <section class="consumption" aria-labelledby="consumption-title">
+        <div class="section-heading">
+          <div><span class="index">01</span><h2 id="consumption-title">总体消耗</h2></div>
+          <p>所有数据集 · 两模型 · 包含重试</p>
+        </div>
+        <div class="total-grid">
+          <article class="total-card token-card">
+            <span class="micro-label">TOTAL TOKENS</span>
+            <strong id="total-tokens">—</strong>
+            <p id="token-breakdown">输入与输出 token 合计</p>
+          </article>
+          <article class="total-card cost-card">
+            <span class="micro-label">TOTAL COST</span>
+            <strong id="total-cost">—</strong>
+            <p id="cost-note">API 调用总费用</p>
+          </article>
+        </div>
+        <div class="model-consumption" id="model-consumption"></div>
+      </section>
+
       <section class="scoreboard" aria-labelledby="scoreboard-title">
         <div class="section-heading">
-          <div><span class="index">01</span><h2 id="scoreboard-title">核心结果</h2></div>
-          <p>阈值 0.50 · Overall unsafe</p>
+          <div><span class="index">02</span><h2 id="scoreboard-title">核心结果</h2></div>
+          <div class="dataset-controls"><label for="dataset-select">数据集</label><select id="dataset-select" aria-label="数据集"></select></div>
         </div>
+        <p class="dataset-context" id="dataset-context"></p>
         <div class="model-grid" id="model-grid" aria-live="polite"></div>
       </section>
 
       <section class="tradeoff" aria-labelledby="tradeoff-title">
         <div class="section-heading">
-          <div><span class="index">02</span><h2 id="tradeoff-title">质量、速度与价格</h2></div>
+          <div><span class="index">03</span><h2 id="tradeoff-title">质量、速度与价格</h2></div>
           <p>实际调用口径，包含重试成本</p>
         </div>
         <div class="tradeoff-grid">
@@ -72,7 +93,7 @@
 
       <section class="categories" aria-labelledby="categories-title">
         <div class="section-heading">
-          <div><span class="index">03</span><h2 id="categories-title">风险方向表现</h2></div>
+          <div><span class="index">04</span><h2 id="categories-title">风险方向表现</h2></div>
           <div class="category-controls">
             <label for="metric-select">指标</label>
             <select id="metric-select">
@@ -89,10 +110,10 @@
 
       <section class="method" aria-labelledby="method-title">
         <div class="section-heading">
-          <div><span class="index">04</span><h2 id="method-title">读数说明</h2></div>
+          <div><span class="index">05</span><h2 id="method-title">读数说明</h2></div>
         </div>
         <div class="method-grid">
-          <article><span>DATA</span><h3>同例配对</h3><p>两种模型处理同一批对话与同一套 24 项安全分类，避免样本差异影响比较。</p></article>
+          <article><span>DATA</span><h3>同例配对</h3><p>两种模型处理相同样本，并按各数据集对应的安全分类体系评分，避免样本差异影响比较。</p></article>
           <article><span>COST</span><h3>真实用量</h3><p>成本来自 API 返回的 token 与价格字段；未知账单记为下界，不猜测缺失费用。</p></article>
           <article><span>PRIVACY</span><h3>只发聚合</h3><p>公网版本不包含原始对话、模型原始响应、样本标识或任何 API 凭据。</p></article>
         </div>
@@ -107,7 +128,7 @@
     <footer>
       <div class="brand footer-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>VerdictLab</span></div>
       <p>可复现的内容安全模型评测。</p>
-      <p>ChineseHarm-Bench 与 COLDataset 数据将在完整运行后加入。</p>
+      <p>已纳入 Aegis 2.0、ChineseHarm-Bench 与 COLDataset。</p>
     </footer>
 
     <template id="model-card-template">

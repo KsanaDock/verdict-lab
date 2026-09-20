@@ -50,11 +50,24 @@ h1 em { color: var(--cyan); font-style: normal; }
 .coverage-track span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--cyan), #a7fff7); transition: width .8s ease; }
 .hero-side p { color: var(--muted); font-size: .78rem; margin: 12px 0 0; }
 section:not(.hero) { padding: 76px 0; border-bottom: 1px solid var(--line); }
+.total-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.total-card { border: 1px solid var(--line); padding: clamp(26px, 4vw, 42px); background: linear-gradient(145deg, rgba(255,255,255,.052), rgba(255,255,255,.012)); position: relative; overflow: hidden; }
+.total-card::after { content: ""; position: absolute; width: 180px; height: 180px; border-radius: 50%; right: -90px; bottom: -110px; background: var(--glow); filter: blur(45px); opacity: .18; }
+.token-card { --glow: var(--cyan); }.cost-card { --glow: var(--amber); }
+.total-card > strong { display: block; margin: 26px 0 12px; font: 650 clamp(3.1rem, 7vw, 6.3rem)/.9 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: -.075em; }
+.token-card > strong { color: var(--cyan); }.cost-card > strong { color: var(--amber); }
+.total-card p { color: var(--muted); margin: 0; font-size: .8rem; }
+.model-consumption { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 18px; }
+.consumption-row { border: 1px solid var(--line); padding: 16px 20px; display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 24px; color: var(--muted); font-size: .78rem; }
+.consumption-row strong { color: var(--text); font-size: .86rem; }
+.consumption-row b { color: var(--text); font: 600 .82rem ui-monospace, SFMono-Regular, Consolas, monospace; }
 .section-heading { display: flex; justify-content: space-between; gap: 24px; align-items: center; margin-bottom: 30px; }
 .section-heading > div:first-child { display: flex; align-items: center; gap: 18px; }
 .section-heading h2 { font-size: clamp(1.55rem, 3vw, 2.5rem); letter-spacing: -.04em; margin: 0; }
 .section-heading p { color: var(--muted); margin: 0; font-size: .82rem; }
 .index { display: grid; place-items: center; width: 35px; height: 35px; border: 1px solid var(--line); color: var(--muted); font: .7rem ui-monospace, SFMono-Regular, Consolas, monospace; }
+.dataset-controls { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: .78rem; }
+.dataset-context { color: var(--muted); font-size: .8rem; margin: -15px 0 28px 53px; }
 .model-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .model-card { background: linear-gradient(150deg, rgba(255,255,255,.055), rgba(255,255,255,.018)); border: 1px solid var(--line); padding: clamp(24px, 4vw, 42px); position: relative; overflow: hidden; box-shadow: var(--shadow); }
 .model-card::after { content: ""; width: 220px; height: 220px; border: 1px solid currentColor; opacity: .09; border-radius: 50%; position: absolute; right: -90px; top: -120px; }
@@ -114,7 +127,7 @@ footer { padding: 36px 0 54px; display: grid; grid-template-columns: 1fr auto au
   .hero { padding-top: 60px; }
   .hero-grid, .tradeoff-grid { grid-template-columns: 1fr; }
   .hero-side { border-left: 0; border-top: 1px solid var(--line); padding: 26px 0 0; }
-  .model-grid { grid-template-columns: 1fr; }
+  .model-grid, .total-grid, .model-consumption { grid-template-columns: 1fr; }
   .category-row { grid-template-columns: 1fr; gap: 10px; padding: 18px 0; }
   .category-result { text-align: left; grid-template-columns: auto 1fr; gap: 12px; }
   .method-grid { grid-template-columns: 1fr; }
@@ -126,6 +139,9 @@ footer { padding: 36px 0 54px; display: grid; grid-template-columns: 1fr auto au
   h1 { font-size: 3rem; }
   section:not(.hero) { padding: 54px 0; }
   .section-heading { align-items: flex-start; flex-direction: column; }
+  .dataset-context { margin-left: 0; }
+  .consumption-row { grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .consumption-row strong { grid-column: 1 / -1; }
   .category-note { margin-left: 0; }
   .primary-score strong { font-size: 4.6rem; }
   .model-foot { align-items: flex-start; flex-direction: column; gap: 4px; }
